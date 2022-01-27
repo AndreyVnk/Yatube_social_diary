@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load cache %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% cache 20 index_page %}
+{% block content %}
+{% include 'posts/includes/switcher.html' %}
+  <div class="container py-5">
+    <h1>Последние обновления на сайте</h1>
+    <article>
+      {% for post in page_obj %}
+      <ul>
+        <li>
+          Автор: <a href="{% url 'posts:profile' username=post.author.username %}"> {{ post.author.get_full_name }} 
+          <a>
+        </li>
+        <li>
+          Группа: {{post.group }}
+        </li>
+        <li>
+          Дата публикации: {{ post.pub_date|date:"d E Y" }}
+        </li>
+      </ul>
+      {% include 'posts/includes/thumbnail.html' %}
+      <p>{{ post.text }}</p>
+      {% if post.group %}
+        <a href="{% url 'posts:group_list' slug=post.group.slug %}">все записи группы</a>
+      {% endif %}
+      {% if not forloop.last %}
+      <hr>
+      {% endif %}
+      {% endfor %} 
+    </article>
+    <hr>
+  </div>
+{% endblock %}
+{% endcache %}
