@@ -22,7 +22,7 @@ class Post(models.Model):
 
     text = models.TextField(
         'Текст поста',
-        help_text='Текст нового поста'
+        help_text='Введите текст поста'
     )
     pub_date = models.DateTimeField(
         'Дата публикации',
@@ -40,7 +40,7 @@ class Post(models.Model):
         on_delete=SET_NULL,
         related_name='posts',
         verbose_name='Группа',
-        help_text='Группа, к которой будет относиться пост'
+        help_text='Выберите группу'
     )
     image = models.ImageField(
         'Изображение',
