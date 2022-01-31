@@ -10,8 +10,8 @@ class AboutURLTests(TestCase):
         """Test URLS."""
 
         templates_urls_names = {
-            '/about/author/': HTTPStatus.OK,
-            '/about/tech/': HTTPStatus.OK,
+            "/about/author/": HTTPStatus.OK,
+            "/about/tech/": HTTPStatus.OK,
         }
         for address, status in templates_urls_names.items():
             with self.subTest(address=address):

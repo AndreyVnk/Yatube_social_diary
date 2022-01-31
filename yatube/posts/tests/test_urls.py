@@ -2,6 +2,7 @@ from http import HTTPStatus
 
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
+
 from posts.models import Group, Post
 
 User = get_user_model()
@@ -13,16 +14,14 @@ class StaticURLsTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.user = User.objects.create_user(username='auth')
+        cls.user = User.objects.create_user(username="auth")
         cls.group = Group.objects.create(
-            title='title',
-            slug='slug',
-            description='description',
+            title="title",
+            slug="slug",
+            description="description",
         )
         cls.post = Post.objects.create(
-            author=cls.user,
-            text='text',
-            group=cls.group
+            author=cls.user, text="text", group=cls.group
         )
 
     def setUp(self):
@@ -32,15 +31,13 @@ class StaticURLsTests(TestCase):
     def test_create_post_url_user_exists_at_desired_location(self):
         """Страница /create/ доступна авторизованному пользователю."""
 
-        response = self.authorized_client.get('/create/')
+        response = self.authorized_client.get("/create/")
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_edit_post_url_author_exists_at_desired_location(self):
         """Страница редактирования /posts/post_id/edit/ доступна автору."""
 
-        response = self.authorized_client.get(
-            f'/posts/{self.post.id}/edit/'
-        )
+        response = self.authorized_client.get(f"/posts/{self.post.id}/edit/")
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_posts_template_urls_guest_exists_at_desired_loc(self):
@@ -49,11 +46,11 @@ class StaticURLsTests(TestCase):
         """
 
         templates_url_names = {
-            '/': HTTPStatus.OK,
-            f'/group/{self.group.slug}/': HTTPStatus.OK,
-            f'/profile/{self.user.username}/': HTTPStatus.OK,
-            f'/posts/{self.post.id}/': HTTPStatus.OK,
-            '/unexisting_page/': HTTPStatus.NOT_FOUND,
+            "/": HTTPStatus.OK,
+            f"/group/{self.group.slug}/": HTTPStatus.OK,
+            f"/profile/{self.user.username}/": HTTPStatus.OK,
+            f"/posts/{self.post.id}/": HTTPStatus.OK,
+            "/unexisting_page/": HTTPStatus.NOT_FOUND,
         }
         for address, template in templates_url_names.items():
             with self.subTest(address=address):
@@ -66,11 +63,11 @@ class StaticURLsTests(TestCase):
         """
 
         templates_url_names = {
-            'posts/index.html': '/',
-            'posts/group_list.html': f'/group/{self.group.slug}/',
-            'posts/profile.html': f'/profile/{self.user.username}/',
-            'posts/post_detail.html': f'/posts/{self.post.id}/',
-            'core/404.html': '/unexisting_page/',
+            "posts/index.html": "/",
+            "posts/group_list.html": f"/group/{self.group.slug}/",
+            "posts/profile.html": f"/profile/{self.user.username}/",
+            "posts/post_detail.html": f"/posts/{self.post.id}/",
+            "core/404.html": "/unexisting_page/",
         }
         for template, address in templates_url_names.items():
             with self.subTest(address=address):
@@ -83,8 +80,9 @@ class StaticURLsTests(TestCase):
         """
 
         templates_url_names = {
-            'posts/create_post.html': (
-                '/create/', f'/posts/{self.post.id}/edit/'
+            "posts/create_post.html": (
+                "/create/",
+                f"/posts/{self.post.id}/edit/",
             )
         }
         for template, address in templates_url_names.items():
@@ -100,7 +98,7 @@ class StaticURLsTests(TestCase):
         """
 
         templates_url_names = {
-            '/auth/login/?next=': ('/create/', f'/posts/{self.post.id}/edit/')
+            "/auth/login/?next=": ("/create/", f"/posts/{self.post.id}/edit/")
         }
 
         for template, address in templates_url_names.items():
