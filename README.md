@@ -44,6 +44,6 @@ python manage.py runserver
 ```
 Проект будет доступен по адресу: http://127.0.0.1:8000/ .
 
-Автор
+*Автор*
 
 AndreyVnk
