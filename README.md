@@ -19,29 +19,26 @@
 ## Запуск проекта ##
 ### 1. Склонировать репозиторий
 ```
-git clone https://github.com/LasBazza/API_Yatube.git
+git clone https://github.com/AndreyVnk/Yatube_social_diary.git
 ```
 
 ### 2. Создать виртуальное окружение и активировать его
-Перейти в папку с проектом _API_Yatube/_ выполнить команды
+Перейти в папку с проектом _Yatube_social_diary/_ выполнить команды
 ```
 python -m venv venv
 source venv/Scripts/activate (для Windows) | source venv/bin/activate (для Linux)
 ```
-### 3. Создать в корневой папке проекта и заполнить файл _.env_
-```
-SECRET_KEY=secret_django_key
-```
-### 4. Установить необходимые пакеты
+
+### 3. Установить необходимые пакеты
 ```
 pip install -r requirements.txt
 ```
-### 5. Выполнить миграции
-Из папки *API_Yatube/yatube_api/*, выполнить команду
+### 4. Выполнить миграции
+Из папки *Yatube_social_diary/yatube/*, выполнить команду
 ```
 python manage.py migrate
 ```
-### 6. Запустить проект
+### 5. Запустить проект
 ```
 python manage.py runserver
 ```
